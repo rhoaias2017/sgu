@@ -26,6 +26,15 @@ using namespace std;
 #endif
 
 int main() {
+  int N;
+  cin >> N;
+  if (N % 3 == 0) {
+    cout << N / 3 * 2 << endl;
+  } else if (N % 3 == 1) {
+    cout << (N - 1) / 3 * 2 << endl;
+  } else {
+    cout << (N - 2) / 3 * 2 + 1 << endl;
+  }
   return 0;
 }
 

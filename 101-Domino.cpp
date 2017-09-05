@@ -16,18 +16,14 @@ const int D = 7;
 vector<vector<int>> dcount(D * D, vector<int>());
 vector<vector<int>> G(D, vector<int>(D, 0));
 void dfs_euler(int idx, vector<int>& ret) {
-  vector<int> last;
   for (int i = 0; i < G[idx].size(); ++i) {
     while (G[idx][i]) {
-      vector<int> add({idx, i});
       G[idx][i]--;
       G[i][idx]--;
-      dfs_euler(i, add);
-      if (add.size() && add.back() != idx) last.swap(add);
-      else ret.insert(ret.end(), add.begin(), add.end());
+      dfs_euler(i, ret);
+      ret.insert(ret.end(), {i, idx});
     }
   }
-  ret.insert(ret.end(), last.begin(), last.end());
 }
 
 int main() {
@@ -73,10 +69,10 @@ int main() {
         }
       }
     }
+    reverse(seq.begin(), seq.end());
     for (int i = 0; i < seq.size(); i += 2) {
       int a = seq[i];
       int b = seq[i + 1];
-//       cout << a << "--->" << b << endl;
       int w = a * D + b;
       int rw = b * D + a;
       if (dcount[w].size()) {

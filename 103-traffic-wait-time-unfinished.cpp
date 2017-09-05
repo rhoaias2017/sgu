@@ -41,6 +41,29 @@ void add_edge(int u, int v, int w) {
   G[v].push_back(edge(u, w));
 }
 
+bool is_blue(int b_period, int p_period, int cur_t, bool start_b, int start_remain) {
+  //time 0 is the start of blue.
+  int start_time;
+  if (start_b) {
+    start_time = b_period - start_remain;
+  } else {
+    start_time = b_period + p_period - start_remain;
+  }
+  int real_time = (cur_t + start_time) % (b_period + p_period);
+  if (real_time >= b_period) {
+    return false;
+  }
+  return true;
+}
+
+int next_blue(int b_period, int p_period, int cur_t, bool start_b, int start_remain) {
+  
+}
+
+int next_purple(int b_period, int p_period, int cur_t, bool start_b, int start_remain) {
+  
+}
+
 void dij(int s) {
   priority_queue<int> pq;
   pq.push({0, s, s});
@@ -54,10 +77,11 @@ void dij(int s) {
     for (int i = 0; i < G[v.n].size(); ++i) {
       const edge& e = G[v.n][i];
       if (vis[e.t]) continue;
-      int st = (bt[v.n] + (b[v.n] ? pt[v.n] : 0) +  - r[v.n] + v.dist) % (bt[v.n] + pt[v.n]); //time 0 - blue starts
-      int tt = (bt[e.t] + (b[e.t] ? pt[e.t] : 0) +  - r[e.t] + v.dist) % (bt[e.t] + pt[e.t]);
+      int cur_t = v.dist;
       int wait = 0;
-      if (st >= bt[v.n] && tt < bt[e.t] || st < bt[v.n] && tt >= bt[e.t]) {
+      int src = v.n;
+      int tar = e.t;
+      if (is_blue(bt[src],pt[src],cur_t,blue[src],r[src]) != is_blue(bt[tar], pt[tar], cur_t,blue[tar], r[tar])) {
         
       }
       pq.push({e.w + v.dist + wait, e.t, v.n});

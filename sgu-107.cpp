@@ -25,7 +25,16 @@ using namespace std;
 #define dprintf(...)
 #endif
 
-int main() {
-  return 0;
+int main ()
+{
+    int n; scanf("%d", &n);
+    if(n < 9) return printf("0\n"), 0;
+    else if(n ==9 ) return printf("8\n"), 0;
+    else{
+        printf("72");
+        n -= 10;
+        while(n){printf("0");n--;}
+        printf("\n");
+    }
+    return 0;
 }
-
